@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Time
 from src.models.base import Base
 
-class Lembrete(Base):
+class LembreteTable(Base):
     __tablename__ = "lembretes"
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
