@@ -10,52 +10,51 @@ class LembreteRepository(LembreteRepositoryInterface):
         self.__db_connection = db_connection
 
     def create(self, dto: dict) -> None:
-        with self.__db_connection.get_session() as session:
+        with self.__db_connection as database:
             try:
                 data_obj = LembreteTable(
                     nome=dto.get("nome"),
                     quantidade=dto.get("quantidade"),
                     horario=dto.get("horario")
                 )
-                session.add(data_obj)
-                session.commit()
+                database.session.add(data_obj)
+                database.session.commit()
             except Exception as e:
-                session.rollback()
+                database.session.rollback()
                 raise e
             
-    def get_all(self) -> list:
-        with self.__db_connection.get_session() as session:
+    def get_all(self) -> list[LembreteTable]:
+        with self.__db_connection as database:
             try:
-                return session.query(LembreteTable).all()
+                return database.session.query(LembreteTable).all()
             except Exception as e:
                 raise e
             
-    def get_by_id(self, id: int) -> list:
-        with self.__db_connection.get_session() as session:
+    def get_by_id(self, id: int) -> LembreteTable:
+        with self.__db_connection as database:
             try:
-                return session.query(LembreteTable).filter(LembreteTable.id == id).first()
+                return database.session.query(LembreteTable).filter(LembreteTable.id == id).first()
             except Exception as e:
                 raise e
 
-    def update(self, dto: dict) -> None:
-        with self.__db_connection.get_session() as session:
+    def update(self, dto: dict, id: int) -> None:
+        with self.__db_connection as database:
             try:
-                lembrete = LembreteTable(
-                    nome=dto.get("nome"),
-                    quantidade=dto.get("quantidade"),
-                    horario=dto.get("horario")
-                )
-                session.query(LembreteTable).filter(LembreteTable.id == dto.get("id")).update(lembrete)
-                session.commit()
+                nome=dto.get("nome")
+                quantidade=dto.get("quantidade")
+                horario=dto.get("horario")
+
+                database.session.query(LembreteTable).filter(LembreteTable.id == id).update({LembreteTable.nome: nome, LembreteTable.quantidade: quantidade, LembreteTable.horario: horario})
+                database.session.commit()
             except Exception as e:
-                session.rollback()
+                database.session.rollback()
                 raise e
 
     def delete(self, id: int) -> None:
-        with self.__db_connection.get_session() as session:
+        with self.__db_connection as database:
             try:
-                session.query(LembreteTable).filter(LembreteTable.id == id).delete()
-                session.commit()
+                database.session.query(LembreteTable).filter(LembreteTable.id == id).delete()
+                database.session.commit()
             except Exception as e:
-                session.rollback()
+                database.session.rollback()
                 raise e

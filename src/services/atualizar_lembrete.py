@@ -1,3 +1,4 @@
+from datetime import time
 from fastapi import HTTPException
 from src.interfaces.models.lembrete_repository_interface import LembreteRepositoryInterface
 from src.interfaces.services.atualizar_lembrete_interface import AtualizarLembreteInterface
@@ -35,10 +36,16 @@ class AtualizarLembrete (AtualizarLembreteInterface):
         
         if not isinstance(dto.get("horario"), str):
             raise HTTPException(status_code=422, detail="O horário precisa ser uma string")
+        
+        try:
+            time.fromisoformat(dto.get("horario"))
+            
+        except ValueError:
+            raise HTTPException(status_code=422, detail="O horário precisa estar no formato 'HH:MM'")
     
     def __atualizar_no_db(self, id: int, dto: dict) -> None:
         try:
-            self.__lembrete_repository.update(id, dto)
+            self.__lembrete_repository.update(dto=dto, id=id)
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
         

@@ -11,4 +11,5 @@ class CriarLembreteController (ControllerInterface):
         
     def handle (self, http_request: HttpRequest) -> HttpResponse:
         dto = http_request.body
-        return self.__criar_lembrete_service.criar(dto)
+        body_response = self.__criar_lembrete_service.criar(dto)
+        return HttpResponse(status_code=201, body=body_response)

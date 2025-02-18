@@ -12,4 +12,5 @@ class AtualizarLembreteController (ControllerInterface):
     def handle (self, http_request: HttpRequest) -> HttpResponse:
         id = http_request.param.get('id')
         dto = http_request.body
-        return self.__atualizar_lembrete_service.atualizar(id, dto)
+        body_response = self.__atualizar_lembrete_service.atualizar(id, dto)
+        return HttpResponse(status_code=200, body=body_response)

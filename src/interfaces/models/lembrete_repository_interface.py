@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from src.models.entities.lembrete import LembreteTable
 
 class LembreteRepositoryInterface(ABC):
     """Interface para o repositório de lembretes."""
@@ -8,11 +9,11 @@ class LembreteRepositoryInterface(ABC):
         pass
     
     @abstractmethod
-    def get_all(self) -> list:
+    def get_all(self) -> list[LembreteTable]:
         pass
     
     @abstractmethod
-    def get_by_id(self, id: int) -> list:
+    def get_by_id(self, id: int) -> LembreteTable:
         pass
     
     @abstractmethod

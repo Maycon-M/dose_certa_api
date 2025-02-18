@@ -38,10 +38,10 @@ async def criar_lembrete(request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.get("/{lembrete_id}")
-async def listar_lembretes(lembrete_id: int):
+@router.get("/{id}")
+async def listar_lembretes(id: int):
     try:
-        http_request = HttpRequest(param={"lembrete_id": lembrete_id})
+        http_request = HttpRequest(param={"id": id})
         controller = listar_por_id_composer()
         http_respose = controller.handle(http_request)
         return JSONResponse(status_code=http_respose.status_code, content=http_respose.body)
@@ -66,12 +66,12 @@ async def listar_todos_lembretes():
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.put("/{lembrete_id}")
-async def atualizar_lembrete(lembrete_id: int, request: Request):
+@router.put("/{id}")
+async def atualizar_lembrete(id: int, request: Request):
     try:
         body = await request.json()
         
-        http_request = HttpRequest(param={"lembrete_id": lembrete_id}, body=body)
+        http_request = HttpRequest(param={"id": id}, body=body)
         controller = atualizar_lembrete_composer()
         http_respose = controller.handle(http_request)
         return JSONResponse(status_code=http_respose.status_code, content=http_respose.body)
@@ -82,16 +82,16 @@ async def atualizar_lembrete(lembrete_id: int, request: Request):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
-@router.delete("/{lembrete_id}")
-async def deletar_lembrete(lembrete_id: int):
+@router.delete("/{id}")
+async def deletar_lembrete(id: int):
     try:
-        http_request = HttpRequest(param={"lembrete_id": lembrete_id})
+        http_request = HttpRequest(param={"id": id})
         controller = deletar_lembrete_composer()
         http_respose = controller.handle(http_request)
         return JSONResponse(status_code=http_respose.status_code, content=http_respose.body)
     
     except HTTPException as e:
-        raise HTTPException(status_code=e.status_code, detail=e.detail)
+        raise HTTPException(status_code=e.status_code)
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

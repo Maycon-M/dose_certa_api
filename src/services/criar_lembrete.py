@@ -1,6 +1,7 @@
 from fastapi import HTTPException
 from src.interfaces.models.lembrete_repository_interface import LembreteRepositoryInterface
 from src.interfaces.services.criar_lembrete_interface import CriarLembreteInterface
+from datetime import time
 
 class CriarLembrete(CriarLembreteInterface):
     """Classe de serviço para criar um lembrete."""
@@ -35,6 +36,12 @@ class CriarLembrete(CriarLembreteInterface):
 
         if not isinstance(dto.get("horario"), str):
             raise HTTPException(status_code=422, detail="O horário precisa ser uma string")
+        
+        try:
+            time.fromisoformat(dto.get("horario"))
+            
+        except ValueError:
+            raise HTTPException(status_code=422, detail="O horário precisa estar no formato 'HH:MM'")
 
     def __criar_no_db(self, dto: dict) -> None:
         try:

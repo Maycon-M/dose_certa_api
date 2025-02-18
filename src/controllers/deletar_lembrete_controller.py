@@ -11,4 +11,5 @@ class DeletarLembreteController (ControllerInterface):
         
     def handle (self, http_request: HttpRequest) -> HttpResponse:
         id = http_request.param.get('id')
-        return self.__deletar_lembrete_service.deletar(id)
+        self.__deletar_lembrete_service.deletar(id)
+        return HttpResponse(status_code=204, body=None)

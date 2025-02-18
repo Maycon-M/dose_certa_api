@@ -10,5 +10,6 @@ class ListarPorIdController(ControllerInterface):
         self.__listar_por_id_service = listar_por_id_service
 
     def handle(self, request: HttpRequest) -> HttpResponse:
-        lembrete_id = request.params["id"]
-        return self.__listar_por_id_service.listar(lembrete_id)
+        lembrete_id = request.param.get("id")
+        body_response = self.__listar_por_id_service.listar(lembrete_id)
+        return HttpResponse(status_code=200, body=body_response)

@@ -10,4 +10,5 @@ class ListarTodosController(ControllerInterface):
         self.__listar_todos_service = listar_todos_service
 
     def handle(self, request: HttpRequest) -> HttpResponse:
-        return self.__listar_todos_service.listar()
+        body_response = self.__listar_todos_service.listar()
+        return HttpResponse(status_code=200, body=body_response)
