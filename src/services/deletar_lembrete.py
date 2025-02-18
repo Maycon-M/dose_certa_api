@@ -13,9 +13,9 @@ class DeletarLembrete(DeletarLembreteInterface):
     
     def __deletar_no_db (self, id: int) -> None:
         try:
-            lembrete = self.lembrete_repository.buscar_por_id(id)
+            lembrete = self.lembrete_repository.get_by_id(id)
             if not lembrete:
                 raise HTTPException(status_code=404, detail="Lembrete não encontrado.")
-            self.lembrete_repository.deletar(id)
+            self.lembrete_repository.delete(id)
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))

@@ -13,7 +13,7 @@ class ListarTodos(ListarTodosInterface):
 
     def __listar_do_db(self) -> list:
         try:
-            return self.__lembrete_repository.list_all()
+            return self.__lembrete_repository.get_all()
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
         

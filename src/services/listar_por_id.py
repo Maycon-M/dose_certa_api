@@ -15,7 +15,7 @@ class ListarPorId(ListarPorIdInterface):
         
     def __listar_do_db(self, id: int) -> dict:
         try:
-            return self.__lembrete_repository.list_by_id(id)
+            return self.__lembrete_repository.get_by_id(id)
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
         
