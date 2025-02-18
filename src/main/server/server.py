@@ -6,7 +6,11 @@ from src.main.routes.lembretes_routes import router as lembretes_router
 
 postgres_connection_handler.connect_to_db()
 
-app = FastAPI()
+app = FastAPI(
+    title="Dose Certa API",
+    description="API para gerenciamento de lembretes de medicamentos.",
+    version="1.0.0"
+)
 
 @app.get("/")
 def health_check():

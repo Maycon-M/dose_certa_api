@@ -23,14 +23,14 @@ class LembreteRepository(LembreteRepositoryInterface):
                 session.rollback()
                 raise e
             
-    def get_all(self) -> list(LembreteTable):
+    def get_all(self) -> list:
         with self.__db_connection.get_session() as session:
             try:
                 return session.query(LembreteTable).all()
             except Exception as e:
                 raise e
             
-    def get_by_id(self, id: int) -> list(LembreteTable):
+    def get_by_id(self, id: int) -> list:
         with self.__db_connection.get_session() as session:
             try:
                 return session.query(LembreteTable).filter(LembreteTable.id == id).first()

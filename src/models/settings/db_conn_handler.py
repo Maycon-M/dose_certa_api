@@ -2,9 +2,9 @@ from sqlalchemy import create_engine
 from sqlalchemy import Engine
 from sqlalchemy.orm import sessionmaker
 from src.configs.database import DATABASE_URL
-from src.interfaces.models.db_connection_interface import IDataBaseConnectionHandler
+from src.interfaces.models.db_connection_interface import DBConnectionInterface
 
-class PostgresConnectionHandler(IDataBaseConnectionHandler):
+class PostgresConnectionHandler(DBConnectionInterface):
     """
     Essa classe é responsável por criar a conexÃ£o com o banco de dados PostgreSQL.
     """

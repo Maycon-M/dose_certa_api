@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from sqlalchemy import Engine
 
-class IDataBaseConnectionHandler(ABC):
+class DBConnectionInterface(ABC):
     
     @abstractmethod
     def connect_to_db(self) -> Engine:
