@@ -46,7 +46,15 @@ class CriarLembrete(CriarLembreteInterface):
     def __criar_no_db(self, dto: dict) -> dict:
         try:
             data_obj = self.__lembrete_repository.create(dto)
-            return data_obj
+            
+            dto = {
+                "id": data_obj.id,
+                "nome": data_obj.nome,
+                "quantidade": data_obj.quantidade,
+                "horario": data_obj.horario
+            }
+            
+            return dto
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
         
