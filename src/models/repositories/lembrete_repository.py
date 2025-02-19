@@ -20,7 +20,12 @@ class LembreteRepository(LembreteRepositoryInterface):
                 database.session.add(data_obj)
                 database.session.flush()
                 database.session.commit()
-                return data_obj
+                return {
+                    "id": data_obj.id,
+                    "nome": data_obj.nome,
+                    "quantidade": data_obj.quantidade,
+                    "horario": data_obj.horario.strftime("%H:%M")
+                }
             except Exception as e:
                 database.session.rollback()
                 raise e
