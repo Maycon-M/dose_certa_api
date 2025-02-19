@@ -5,7 +5,7 @@ class LembreteRepositoryInterface(ABC):
     """Interface para o repositório de lembretes."""
     
     @abstractmethod
-    def create(self, dto: dict) -> None:
+    def create(self, dto: dict) -> dict:
         pass
     
     @abstractmethod

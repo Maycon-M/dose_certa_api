@@ -15,9 +15,9 @@ class CriarLembrete(CriarLembreteInterface):
         dto["nome"] = dto["nome"].strip()
         dto["quantidade"] = int(dto["quantidade"])
 
-        self.__criar_no_db(dto)
+        returno_dto = self.__criar_no_db(dto)
 
-        return self.__formatar_resposta(dto)
+        return self.__formatar_resposta(returno_dto)
 
     def __validar_dados(self, dto: dict) -> None:
         if not isinstance(dto, dict):
@@ -43,9 +43,10 @@ class CriarLembrete(CriarLembreteInterface):
         except ValueError:
             raise HTTPException(status_code=422, detail="O horário precisa estar no formato 'HH:MM'")
 
-    def __criar_no_db(self, dto: dict) -> None:
+    def __criar_no_db(self, dto: dict) -> dict:
         try:
-            self.__lembrete_repository.create(dto)
+            data_obj = self.__lembrete_repository.create(dto)
+            return data_obj
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
         
@@ -54,6 +55,6 @@ class CriarLembrete(CriarLembreteInterface):
             "data": {
                 "type": "lembrete",
                 "count": 1,
-                "attrbiutes": dto
+                "attributes": dto
             }
         }

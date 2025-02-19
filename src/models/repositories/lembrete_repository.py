@@ -9,7 +9,7 @@ class LembreteRepository(LembreteRepositoryInterface):
     def __init__(self, db_connection: DBConnectionInterface):
         self.__db_connection = db_connection
 
-    def create(self, dto: dict) -> None:
+    def create(self, dto: dict) -> dict:
         with self.__db_connection as database:
             try:
                 data_obj = LembreteTable(
@@ -19,6 +19,7 @@ class LembreteRepository(LembreteRepositoryInterface):
                 )
                 database.session.add(data_obj)
                 database.session.commit()
+                return data_obj
             except Exception as e:
                 database.session.rollback()
                 raise e
