@@ -18,6 +18,7 @@ class LembreteRepository(LembreteRepositoryInterface):
                     horario=dto.get("horario")
                 )
                 database.session.add(data_obj)
+                database.session.flush()
                 database.session.commit()
                 return data_obj
             except Exception as e:
