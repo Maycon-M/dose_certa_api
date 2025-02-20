@@ -68,3 +68,10 @@ A API possui Documentação feita com Swagger. Após construir a imagem no docke
 ``` bash
     http://localhost:8000/docs
 ```
+
+
+## Relacionados
+
+Segue o front-end do projeto
+
+[Dose Certa](https://github.com/Maycon-M/dose-certa)
