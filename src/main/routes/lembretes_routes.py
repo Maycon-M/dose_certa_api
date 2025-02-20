@@ -88,10 +88,10 @@ async def deletar_lembrete(id: int):
         http_request = HttpRequest(param={"id": id})
         controller = deletar_lembrete_composer()
         http_respose = controller.handle(http_request)
-        return JSONResponse(status_code=http_respose.status_code, content=http_respose.body)
+        return JSONResponse(status_code=http_respose.status_code, content=None)
     
     except HTTPException as e:
-        raise HTTPException(status_code=e.status_code)
+        raise HTTPException(status_code=e.status_code, detail=e.detail)
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
